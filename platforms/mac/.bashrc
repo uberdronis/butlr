@@ -112,7 +112,7 @@
     echo -e "${RED}Remote IP  :${GREEN} $remoteip"
   }
 
-  # eject drives (or all)
+  # eject all volumes (except internal ones)
   eject_all() {
       # grab list of volumes (regex finds the volume name, cat splits them with a $ end of line)
       vols="$(df -lH | grep -o '\/Volumes\/[a-zA-Z0-9_. ]*' | tr '\n' '|')"
@@ -158,7 +158,6 @@
   # postgresql server commands
   pgsql() {
     case $1 in
-      #start)    pg_ctl -D ~/transient/data/pgsql -l ~/transient/logs/pgsql/server.log start ;;
       start)    pg_ctl -D ~/transient/data/pgsql -w -o '--config-file=/Users/pedro/transient/config/postgresql.conf' start ;;
       stop)     pg_ctl -D ~/transient/data/pgsql stop -s -m fast ;;
       status)   pg_ctl -D ~/transient/data/pgsql status ;;
